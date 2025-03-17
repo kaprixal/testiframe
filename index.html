@@ -237,64 +237,6 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script>
-				function isSafari() {
-					const userAgent = navigator.userAgent.toLowerCase();
-					return userAgent.indexOf("safari") !== -1 && userAgent.indexOf("chrome") === -1;
-				}
 
-				function supportStorageAccessApi() {
-					return "hasStorageAccess" in document && "requestStorageAccess" in document;
-				}
-
-				function hasStorageAccess() {
-					return document.hasStorageAccess();
-				}
-
-				function requestStorageAccess() {
-					return document.requestStorageAccess();
-				}
-
-				function requiresStoragePermissions() {
-					return isSafari() && supportStorageAccessApi();
-				}
-
-				document.addEventListener("DOMContentLoaded", function () {
-					if (requiresStoragePermissions()) {
-						hasStorageAccess().then((hasAccess) => {
-							if (!hasAccess) {
-								// Show a message to the user to request storage access
-								const permissionButton = document.createElement("button");
-								permissionButton.innerText = "Allow Cookies";
-								permissionButton.onclick = function () {
-									requestStorageAccess().then(() => {
-										// Storage access granted, proceed with your logic
-										openPopup();
-									}).catch(() => {
-										// Handle error gracefully
-										alert("Storage access denied. Some features may not work.");
-									});
-								};
-								document.body.appendChild(permissionButton);
-							} else {
-								// Storage access already granted, proceed with your logic
-								openPopup();
-							}
-						});
-					} else {
-						// No special permissions needed, proceed with your logic
-						openPopup();
-					}
-				});
-
-				function openPopup() {
-					document.getElementById("popup").style.display = "block";
-				}
-
-				function closePopup() {
-					document.getElementById("popup").style.display = "none";
-				}
-			</script>
 	</body>
-
-	
+</html>
